@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://images.fineartamerica.com/images-medium-large-5/islam-dunk-robert-gumpertz.jpg" alt="Logo">
+        </div>
+        <h2>Islam Dunk Enjoyers Community</h2>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" required>
+                <span class="error" id="usernameError">Please enter a valid username</span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <span class="error" id="passwordError">Please enter a valid password</span>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="links">
+            <a href="#">Create Account</a>
+            <a href="#">Forgot Password?</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
+
+        form.addEventListener('submit', function(event) {
+            let valid = true;
+
+            // Reset error messages
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            // Validate username
+            if (usernameInput.value.trim() === '') {
+                usernameError.style.display = 'block';
+                valid = false;
+            }
+
+            // Validate password
+            if (passwordInput.value.trim() === '') {
+                passwordError.style.display = 'block';
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault(); // Prevent form submission if invalid
+            }
+        });
+    </script>
+</body>
+</html>
