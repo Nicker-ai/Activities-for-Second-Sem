@@ -6,34 +6,31 @@
 
 using namespace std;
 
-const int MAX_COMPUTERS = 50; // Maximum number of computers
+const int MAX_COMPUTERS = 50;
 
 struct Computer {
     string name;
-    int unitQuantity;          // Quantity of units
-    string unitStatus;        // Status of unit
-    int mouseQuantity;         // Quantity of mice
-    string mouseStatus;       // Status of mouse
-    int monitorQuantity;       // Quantity of monitors
-    string monitorStatus;     // Status of monitor
-    int powerSupplyQuantity;   // Quantity of power supplies
-    string powerSupplyStatus;  // Status of power supply
-    int keyboardQuantity;      // Quantity of keyboards
-    string keyboardStatus;     // Status of keyboard
-    int lanQuantity;           // Quantity of LAN components
-    string lanStatus;         // Status of LAN component
+    int unitQuantity;
+    string unitStatus;
+    int mouseQuantity;
+    string mouseStatus;
+    int monitorQuantity;
+    string monitorStatus;
+    int powerSupplyQuantity;
+    string powerSupplyStatus;
+    int keyboardQuantity;
+    string keyboardStatus;
+    int lanQuantity;
+    string lanStatus;
 
-    // Function to determine if the computer is working
     string getStatus() {
-        // Check if any component is not working
         if (unitQuantity == 0 || mouseQuantity == 0 || monitorQuantity == 0 ||
             powerSupplyQuantity == 0 || keyboardQuantity == 0 || lanQuantity == 0) {
-            return "Not Working"; // Mark as "Not Working" if any component is missing
+            return "Not Working";
         }
-        return "Working"; // All components are present
+        return "Working";
     }
 
-    // Function to update status based on quantity
     void updateComponentStatus() {
         unitStatus = (unitQuantity > 0) ? "Working" : "Not Working";
         mouseStatus = (mouseQuantity > 0) ? "Working" : "Not Working";
@@ -44,7 +41,6 @@ struct Computer {
     }
 };
 
-// Function to convert integer to string
 string intToString(int number) {
     stringstream ss;
     ss << number;
@@ -52,7 +48,7 @@ string intToString(int number) {
 }
 
 void displayComputers(Computer computers[], int computerCount) {
-    for (int i = 0; i < computerCount; i++) {
+    for (int i = 0+1; i < computerCount; i++) {
         cout << "\n==========================================================\n";
         cout << "------------------------------\n";
         cout << i << ": " << computers[i].name << " - " << computers[i].getStatus() << endl;
@@ -68,10 +64,9 @@ void displayComputers(Computer computers[], int computerCount) {
 }
 
 int main() {
-    // Initialize the inventory with 34 pre-filled computers
     Computer computers[MAX_COMPUTERS];
-    for (int i = 0; i < 34; i++) {
-        computers[i].name = "C" + intToString(i + 1); // Set names to C1, C2, ...
+    for (int i = 0+1; i < 35; i++) {
+        computers[i].name = "C" + intToString(i);
         computers[i].unitQuantity = 1;
         computers[i].unitStatus = "Working";
         computers[i].mouseQuantity = 1;
@@ -86,12 +81,11 @@ int main() {
         computers[i].lanStatus = "Working";
     }
 
-    int computerCount = 34; // Start with 34 pre-filled computers
+    int computerCount = 35;
     int choice;
 
     do {
-        system("cls"); // Clear the console
-        // Display the interface
+        system("cls");
         cout<<"\t\t\t _______________________________________________________________________________________________________________________________\n";
 		cout<<"\t\t\t|               |   _________   |   _________   |   _________   |   _________   |               |   _________   |   _________   |\n";
 		cout<<"\t\t\t|               |  |C6       |  |  |C5       |  |  |C4       |  |  |C3       |  |               |  |C2       |  |  |C1       |  |\n";
@@ -125,10 +119,9 @@ int main() {
 		cout << "\t\t\t\t\t\t\t                 Choose an option: ";
         cin >> choice;
 
-        // Simple error handling for menu choice
         while (cin.fail() || choice < 1 || choice > 3) {
-            cin.clear(); // Clear the error flag
-            cin.ignore(10000, '\n'); // Discard invalid input
+            cin.clear();
+            cin.ignore(10000, '\n');
             cout << "Invalid choice! Please enter a number between 1 and 3: ";
             cin >> choice;
         }
@@ -136,7 +129,7 @@ int main() {
         if (choice == 1) {
             int subChoice, statusInput;
             do {
-                system("cls"); // Clear the console
+                system("cls");
                 cout << "\n\n\n\n\n\n";
                 cout << "\t\t\t\t\t\t\t\t-=========================-\n";
     			cout << "\t\t\t\t\t\t\t\t|   SUBMENU               |\n";
@@ -145,8 +138,7 @@ int main() {
     			cout << "\t\t\t\t\t\t\t\t| (1) Add Computer        |\n";
     			cout << "\t\t\t\t\t\t\t\t| (2) Edit Computer       |\n";
   				cout << "\t\t\t\t\t\t\t\t| (3) Delete Computer     |\n";
-    			cout << "\t\t\t\t\t\t\t\t| (4) Display Computers   |\n";
-    			cout << "\t\t\t\t\t\t\t\t| (5) Back to Main Menu   |\n";
+    			cout << "\t\t\t\t\t\t\t\t| (4) Back to Main Menu   |\n";
     			cout << "\t\t\t\t\t\t\t\t|                         |\n";
     			cout << "\t\t\t\t\t\t\t\t-=========================-\n";
     			cout << "\n\n";
@@ -154,10 +146,9 @@ int main() {
                 cin >> subChoice;
                 system("cls");
 
-                // Simple error handling for submenu choice
                 while (cin.fail() || subChoice < 1 || subChoice > 5) {
-                    cin.clear(); // Clear the error flag
-                    cin.ignore(10000, '\n'); // Discard invalid input
+                    cin.clear();
+                    cin.ignore(10000, '\n'); 
                     cout << "Invalid choice! Please enter a number between 1 and 5: ";
                     cin >> subChoice;
                 }
@@ -167,7 +158,6 @@ int main() {
                         cout << "Enter name for the new computer (e.g., C35): ";
                         cin >> computers[computerCount].name;
 
-                        // Initialize component quantities to 1 and status to "Working"
                         computers[computerCount].unitQuantity = 1;
                         computers[computerCount].unitStatus = "Working";
                         computers[computerCount].mouseQuantity = 1;
@@ -191,17 +181,15 @@ int main() {
                     cout << "Enter index of the computer to edit: ";
                     cin >> index;
 
-                    // Simple error handling for index
-                    while (cin.fail() || index < 0 || index >= computerCount) {
+                    while (cin.fail() || index < 1 || index >= computerCount) {
                         cin.clear();
                         cin.ignore(10000, '\n');
-                        cout << "Invalid index! Please enter a valid index between 0 and " << computerCount - 1 << ": ";
+                        cout << "Invalid index! Please enter a valid index between 1 and " << computerCount - 1 << ": ";
                         cin >> index;
                     }
 
                     cout << "Editing components for " << computers[index].name << endl;
 
-                    // Input for component quantities
                     cout << "Enter Unit Quantity (0 or 1): ";
                     cin >> computers[index].unitQuantity;
                     while (cin.fail() || (computers[index].unitQuantity != 0 && computers[index].unitQuantity != 1)) {
@@ -211,9 +199,8 @@ int main() {
                         cin >> computers[index].unitQuantity;
                     }
 
-                    // Only ask for status if quantity is greater than 0
                     if (computers[index].unitQuantity > 0) {
-                        int statusInput; // Declare statusInput here
+                        int statusInput;
                         cout << "Enter Unit Status (1 for Working, 0 for Not Working): ";
                         cin >> statusInput;
                         while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
@@ -225,7 +212,6 @@ int main() {
                         computers[index].unitStatus = (statusInput == 1) ? "Working" : "Not Working";
                     }
 
-                    // Repeat for other components (mouse, monitor, power supply, keyboard, LAN)
                     cout << "Enter Mouse Quantity (0 or 1): ";
                     cin >> computers[index].mouseQuantity;
                     while (cin.fail() || (computers[index].mouseQuantity != 0 && computers[index].mouseQuantity != 1)) {
@@ -326,7 +312,6 @@ int main() {
                         computers[index].lanStatus = (statusInput == 1) ? "Working" : "Not Working";
                     }
 
-                    // Update the overall status of the computer
                     computers[index].updateComponentStatus();
 
                     cout << "Components updated for " << computers[index].name << endl;
@@ -335,7 +320,6 @@ int main() {
                     cout << "Enter index to delete: ";
                     cin >> index;
 
-                    // Simple error handling for index
                     while (cin.fail() || index < 0 || index >= computerCount) {
                         cin.clear();
                         cin.ignore(10000, '\n');
@@ -344,22 +328,21 @@ int main() {
                     }
 
                     for (int i = index; i < computerCount - 1; i++) {
-                        computers[i] = computers[i + 1]; // Shift left
+                        computers[i] = computers[i + 1];
                     }
                     computerCount--;
                     cout << "Deleted computer." << endl;
-                } else if (subChoice == 4) {
-                    displayComputers(computers, computerCount);
                 }
-
-                getch(); // Wait for a key press before returning to the submenu
-            } while (subChoice != 5);
+                
+                getch();
+            } while (subChoice != 4);
         } else if (choice == 2) {
         	system("cls");
             displayComputers(computers, computerCount);
-            getch(); // Wait for a key press before returning to the main menu
+            cout << "\nPress any key [ except esc key ] to return.";
+            getch(); 
         }
-    } while (choice != 3); // Exit option in the main menu
+    } while (choice != 3);
 
     cout << "Exiting..." << endl;
     return 0;
