@@ -10,8 +10,8 @@ const int MAX_COMPUTERS = 50;
 
 struct Computer {
     string name;
-    int unitQuantity;
-    string unitStatus;
+    int systemUnitQuantity;
+    string systemUnitStatus;
     int mouseQuantity;
     string mouseStatus;
     int monitorQuantity;
@@ -20,24 +20,24 @@ struct Computer {
     string powerSupplyStatus;
     int keyboardQuantity;
     string keyboardStatus;
-    int lanQuantity;
-    string lanStatus;
+    int lanCableQuantity;
+    string lanCableStatus;
 
     string getStatus() {
-        if (unitQuantity == 0 || mouseQuantity == 0 || monitorQuantity == 0 ||
-            powerSupplyQuantity == 0 || keyboardQuantity == 0 || lanQuantity == 0) {
+        if (systemUnitQuantity == 0 || mouseQuantity == 0 || monitorQuantity == 0 ||
+            powerSupplyQuantity == 0 || keyboardQuantity == 0 || lanCableQuantity == 0) {
             return "Not Working";
         }
         return "Working";
     }
 
     void updateComponentStatus() {
-        unitStatus = (unitQuantity > 0) ? "Working" : "Not Working";
+        systemUnitStatus = (systemUnitQuantity > 0) ? "Working" : "Not Working";
         mouseStatus = (mouseQuantity > 0) ? "Working" : "Not Working";
         monitorStatus = (monitorQuantity > 0) ? "Working" : "Not Working";
         powerSupplyStatus = (powerSupplyQuantity > 0) ? "Working" : "Not Working";
         keyboardStatus = (keyboardQuantity > 0) ? "Working" : "Not Working";
-        lanStatus = (lanQuantity > 0) ? "Working" : "Not Working";
+        lanCableStatus = (lanCableQuantity > 0) ? "Working" : "Not Working";
     }
 };
 
@@ -48,37 +48,45 @@ string intToString(int number) {
 }
 
 void displayComputers(Computer computers[], int computerCount) {
-    for (int i = 0+1; i < computerCount; i++) {
+    for (int i = 1; i < computerCount; i++) {
         cout << "\n==========================================================\n";
         cout << "------------------------------\n";
         cout << i << ": " << computers[i].name << " - " << computers[i].getStatus() << endl;
         cout << "------------------------------\n";
-        cout << "  Unit Quantity          [ " << computers[i].unitQuantity << " ] Status: " << computers[i].unitStatus << endl;
-        cout << "  Mouse Quantity         [ " << computers[i].mouseQuantity << " ] Status: " << computers[i].mouseStatus << endl;
-        cout << "  Monitor Quantity       [ " << computers[i].monitorQuantity << " ] Status: " << computers[i].monitorStatus << endl;
-        cout << "  Power Supply Quantity  [ " << computers[i].powerSupplyQuantity << " ] Status: " << computers[i].powerSupplyStatus << endl;
-        cout << "  Keyboard Quantity      [ " << computers[i].keyboardQuantity << " ] Status: " << computers[i].keyboardStatus << endl;
-        cout << "  LAN Quantity           [ " << computers[i].lanQuantity << " ] Status: " << computers[i].lanStatus << endl;
+        cout << "  System Unit Status     : " << computers[i].systemUnitStatus << endl;
+        cout << "  Mouse Status           : " << computers[i].mouseStatus << endl;
+        cout << "  Monitor Status         : " << computers[i].monitorStatus << endl;
+        cout << "  Power Supply Status    : " << computers[i].powerSupplyStatus << endl;
+        cout << "  Keyboard Status        : " << computers[i].keyboardStatus << endl;
+        cout << "  LAN Cable Status       : " << computers[i].lanCableStatus << endl;
         cout << "\n==========================================================\n";
     }
 }
 
+void editComponentStatus(const string& componentName, string& status) {
+    int statusInput;
+    cout << "Enter " << componentName << " Status (1 for Working, 0 for Not Working): ";
+    cin >> statusInput;
+    while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
+        cin >> statusInput;
+    }
+    status = (statusInput == 1) ? "Working" : "Not Working";
+}
+
 int main() {
     Computer computers[MAX_COMPUTERS];
-    for (int i = 0+1; i < 35; i++) {
+    for (int i = 1; i < 35; i++) {
         computers[i].name = "C" + intToString(i);
-        computers[i].unitQuantity = 1;
-        computers[i].unitStatus = "Working";
+        computers[i].systemUnitQuantity = 1;
         computers[i].mouseQuantity = 1;
-        computers[i].mouseStatus = "Working";
         computers[i].monitorQuantity = 1;
-        computers[i].monitorStatus = "Working";
         computers[i].powerSupplyQuantity = 1;
-        computers[i].powerSupplyStatus = "Working";
         computers[i].keyboardQuantity = 1;
-        computers[i].keyboardStatus = "Working";
-        computers[i].lanQuantity = 1;
-        computers[i].lanStatus = "Working";
+        computers[i].lanCableQuantity = 1;
+        computers[i].updateComponentStatus();
     }
 
     int computerCount = 35;
@@ -86,37 +94,37 @@ int main() {
 
     do {
         system("cls");
-        cout<<"\t\t\t _______________________________________________________________________________________________________________________________\n";
-		cout<<"\t\t\t|               |   _________   |   _________   |   _________   |   _________   |               |   _________   |   _________   |\n";
-		cout<<"\t\t\t|               |  |C6       |  |  |C5       |  |  |C4       |  |  |C3       |  |               |  |C2       |  |  |C1       |  |\n";
-		cout<<"\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |     EMPTY     |  |_________|  |  |_________|  |\n";
-		cout<<"\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |               |     _[ ]_     |     _[ ]_     |\n";
-		cout<<"\t\t\t|               |_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
-		cout<<"\t\t\t|               |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |\n";
-		cout<<"\t\t\t|               |  |C13      |  |  |C12      |  |  |C11      |  |  |C10      |  |  |C9       |  |  |C8       |  |  |C7       |  |\n";
-		cout<<"\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |\n";
-		cout<<"\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |\n";
-		cout<<"\t\t\t|    EMPTY      |_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
-		cout<<"\t\t\t|     SPACE     |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |               |\n";
-		cout<<"\t\t\t|               |  |C19      |  |  |C18      |  |  |C17      |  |  |C16      |  |  |C15      |  |  |C14      |  |    WIFI       |\n";
-		cout<<"\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |     ROUTER    |\n";
-		cout<<"\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |               |\n";
-		cout<<"\t\t\t|               |_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
-		cout<<"\t\t\t|               |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |\n";
-		cout<<"\t\t\t|               |  |C26      |  |  |C25      |  |  |C24      |  |  |C23      |  |  |C22      |  |  |C21      |  |  |C20      |  |\n";
-		cout<<"\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |\n";
-		cout<<"\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |\n";
-		cout<<"\t\t\t|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
-		cout<<"\t\t\t|   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |\n";
-		cout<<"\t\t\t|  |C34      |  |  |C33      |  |  |C32      |  |  |C31      |  |  |C30      |  |  |C29      |  |  |C28      |  |  |C27      |  |\n";
-		cout<<"\t\t\t|  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |\n";
-		cout<<"\t\t\t|     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |\n";
-		cout<<"\t\t\t|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
-		cout<<"\n\n";
+        cout << "\t\t\t _______________________________________________________________________________________________________________________________\n";
+        cout << "\t\t\t|               |   _________   |   _________   |   _________   |   _________   |               |   _________   |   _________   |\n";
+        cout << "\t\t\t|               |  |C6       |  |  |C5       |  |  |C4       |  |  |C3       |  |               |  |C2       |  |  |C1       |  |\n";
+        cout << "\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |     EMPTY     |  |_________|  |  |_________|  |\n";
+        cout << "\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |               |     _[ ]_     |     _[ ]_     |\n";
+        cout << "\t\t\t|               |_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
+        cout << "\t\t\t|               |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |\n";
+        cout << "\t\t\t|               |  |C13      |  |  |C12      |  |  |C11      |  |  |C10      |  |  |C9       |  |  |C8       |  |  |C7       |  |\n";
+        cout << "\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |\n";
+        cout << "\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |\n";
+        cout << "\t\t\t|    EMPTY      |_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
+        cout << "\t\t\t|     SPACE     |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |               |\n";
+        cout << "\t\t\t|               |  |C19      |  |  |C18      |  |  |C17      |  |  |C16      |  |  |C15      |  |  |C14      |  |    WIFI       |\n";
+        cout << "\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |     ROUTER    |\n";
+        cout << "\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |               |\n";
+        cout << "\t\t\t|               |_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
+        cout << "\t\t\t|               |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |\n";
+        cout << "\t\t\t|               |  |C26      |  |  |C25      |  |  |C24      |  |  |C23      |  |  |C22      |  |  |C21      |  |  |C20      |  |\n";
+        cout << "\t\t\t|               |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |\n";
+        cout << "\t\t\t|               |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |\n";
+        cout << "\t\t\t|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
+        cout << "\t\t\t|   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |   _________   |\n";
+        cout << "\t\t\t|  |C34      |  |  |C33      |  |  |C32      |  |  |C31      |  |  |C30      |  |  |C29      |  |  |C28      |  |  |C27      |  |\n";
+        cout << "\t\t\t|  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |  |_________|  |\n";
+        cout << "\t\t\t|     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |     _[ ]_     |\n";
+        cout << "\t\t\t|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|\n";
+        cout << "\n\n";
         cout << "\t\t\t\t\t\t\t-============-  -===========================-  -==========-\n ";
         cout << "\t\t\t\t\t\t\t| (1) SEARCH |  | (2) DISPLAY ALL COMPUTERS |  | (3) EXIT |\n ";
         cout << "\t\t\t\t\t\t\t-============-  -===========================-  -==========-\n\n ";
-		cout << "\t\t\t\t\t\t\t                 Choose an option: ";
+        cout << "\t\t\t\t\t\t\t                 Choose an option: ";
         cin >> choice;
 
         while (cin.fail() || choice < 1 || choice > 3) {
@@ -127,197 +135,34 @@ int main() {
         }
 
         if (choice == 1) {
-            int subChoice, statusInput;
+            int subChoice;
             do {
                 system("cls");
                 cout << "\n\n\n\n\n\n";
-                cout << "\t\t\t\t\t\t\t\t-=========================-\n";
-    			cout << "\t\t\t\t\t\t\t\t|   SUBMENU               |\n";
-    			cout << "\t\t\t\t\t\t\t\t-=========================-\n";
-    			cout << "\t\t\t\t\t\t\t\t|                         |\n";
-    			cout << "\t\t\t\t\t\t\t\t| (1) Add Computer        |\n";
-    			cout << "\t\t\t\t\t\t\t\t| (2) Edit Computer       |\n";
-  				cout << "\t\t\t\t\t\t\t\t| (3) Delete Computer     |\n";
-    			cout << "\t\t\t\t\t\t\t\t| (4) Back to Main Menu   |\n";
-    			cout << "\t\t\t\t\t\t\t\t|                         |\n";
-    			cout << "\t\t\t\t\t\t\t\t-=========================-\n";
-    			cout << "\n\n";
-    			cout << "\t\t\t\t\t\t\t\t Choose an option: ";
+                cout << "\t\t\t\t\t\t\t\t|================================|\n";
+                cout << "\t\t\t\t\t\t\t\t|          SUBMENU               |\n";
+                cout << "\t\t\t\t\t\t\t\t|================================|\n";
+                cout << "\t\t\t\t\t\t\t\t|                                |\n";
+                cout << "\t\t\t\t\t\t\t\t| (1) Edit Components            |\n";
+                cout << "\t\t\t\t\t\t\t\t| (2) Display Computer Status    |\n";
+                cout << "\t\t\t\t\t\t\t\t| (3) Back to Main Menu          |\n";
+                cout << "\t\t\t\t\t\t\t\t|                                |\n";
+                cout << "\t\t\t\t\t\t\t\t|================================|\n";
+                cout << "\n\n";
+                cout << "\t\t\t\t\t\t\t\t Choose an option: ";
                 cin >> subChoice;
                 system("cls");
 
-                while (cin.fail() || subChoice < 1 || subChoice > 5) {
+                while (cin.fail() || subChoice < 1 || subChoice > 3) {
                     cin.clear();
-                    cin.ignore(10000, '\n'); 
-                    cout << "Invalid choice! Please enter a number between 1 and 5: ";
+                    cin.ignore(10000, '\n');
+                    cout << "Invalid choice! Please enter a number between 1 and 3: ";
                     cin >> subChoice;
                 }
 
                 if (subChoice == 1) {
-                    if (computerCount < MAX_COMPUTERS) {
-                        cout << "Enter name for the new computer (e.g., C35): ";
-                        cin >> computers[computerCount].name;
-
-                        computers[computerCount].unitQuantity = 1;
-                        computers[computerCount].unitStatus = "Working";
-                        computers[computerCount].mouseQuantity = 1;
-                        computers[computerCount].mouseStatus = "Working";
-                        computers[computerCount].monitorQuantity = 1;
-                        computers[computerCount].monitorStatus = "Working";
-                        computers[computerCount].powerSupplyQuantity = 1;
-                        computers[computerCount].powerSupplyStatus = "Working";
-                        computers[computerCount].keyboardQuantity = 1;
-                        computers[computerCount].keyboardStatus = "Working";
-                        computers[computerCount].lanQuantity = 1;
-                        computers[computerCount].lanStatus = "Working";
-
-                        computerCount++;
-                        cout << "New computer added: " << computers[computerCount - 1].name << endl;
-                    } else {
-                        cout << "Inventory is full! Cannot add more computers." << endl;
-                    }
-                } else if (subChoice == 2) {
                     int index;
-                    cout << "Enter index of the computer to edit: ";
-                    cin >> index;
-
-                    while (cin.fail() || index < 1 || index >= computerCount) {
-                        cin.clear();
-                        cin.ignore(10000, '\n');
-                        cout << "Invalid index! Please enter a valid index between 1 and " << computerCount - 1 << ": ";
-                        cin >> index;
-                    }
-
-                    cout << "Editing components for " << computers[index].name << endl;
-
-                    cout << "Enter Unit Quantity (0 or 1): ";
-                    cin >> computers[index].unitQuantity;
-                    while (cin.fail() || (computers[index].unitQuantity != 0 && computers[index].unitQuantity != 1)) {
-                        cin.clear();
-                        cin.ignore(10000, '\n');
-                        cout << "Invalid input! Please enter 0 or 1 for Unit Quantity: ";
-                        cin >> computers[index].unitQuantity;
-                    }
-
-                    if (computers[index].unitQuantity > 0) {
-                        int statusInput;
-                        cout << "Enter Unit Status (1 for Working, 0 for Not Working): ";
-                        cin >> statusInput;
-                        while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
-                            cin >> statusInput;
-                        }
-                        computers[index].unitStatus = (statusInput == 1) ? "Working" : "Not Working";
-                    }
-
-                    cout << "Enter Mouse Quantity (0 or 1): ";
-                    cin >> computers[index].mouseQuantity;
-                    while (cin.fail() || (computers[index].mouseQuantity != 0 && computers[index].mouseQuantity != 1)) {
-                        cin.clear();
-                        cin.ignore(10000, '\n');
-                        cout << "Invalid input! Please enter 0 or 1 for Mouse Quantity: ";
-                        cin >> computers[index].mouseQuantity;
-                    }
-                    if (computers[index].mouseQuantity > 0) {
-                        cout << "Enter Mouse Status (1 for Working, 0 for Not Working): ";
-                        cin >> statusInput;
-                        while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
-                            cin >> statusInput;
-                        }
-                        computers[index].mouseStatus = (statusInput == 1) ? "Working" : "Not Working";
-                    }
-
-                    cout << "Enter Monitor Quantity (0 or 1): ";
-                    cin >> computers[index].monitorQuantity;
-                    while (cin.fail() || (computers[index].monitorQuantity != 0 && computers[index].monitorQuantity != 1)) {
-                        cin.clear();
-                        cin.ignore(10000, '\n');
-                        cout << "Invalid input! Please enter 0 or 1 for Monitor Quantity: ";
-                        cin >> computers[index].monitorQuantity;
-                    }
-                    if (computers[index].monitorQuantity > 0) {
-                        cout << "Enter Monitor Status (1 for Working, 0 for Not Working): ";
-                        cin >> statusInput;
-                        while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
-                            cin >> statusInput;
-                        }
-                        computers[index].monitorStatus = (statusInput == 1) ? "Working" : "Not Working";
-                    }
-
-                    cout << "Enter Power Supply Quantity (0 or 1): ";
-                    cin >> computers[index].powerSupplyQuantity;
-                    while (cin.fail() || (computers[index].powerSupplyQuantity != 0 && computers[index].powerSupplyQuantity != 1)) {
-                        cin.clear();
-                        cin.ignore(10000, '\n');
-                        cout << "Invalid input! Please enter 0 or 1 for Power Supply Quantity: ";
-                        cin >> computers[index].powerSupplyQuantity;
-                    }
-                    if (computers[index].powerSupplyQuantity > 0) {
-                        cout << "Enter Power Supply Status (1 for Working, 0 for Not Working): ";
-                        cin >> statusInput;
-                        while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
-                            cin >> statusInput;
-                        }
-                        computers[index].powerSupplyStatus = (statusInput == 1) ? "Working" : "Not Working";
-                    }
-
-                    cout << "Enter Keyboard Quantity (0 or 1): ";
-                    cin >> computers[index].keyboardQuantity;
-                    while (cin.fail() || (computers[index].keyboardQuantity != 0 && computers[index].keyboardQuantity != 1)) {
-                        cin.clear();
-                        cin.ignore(10000, '\n');
-                        cout << "Invalid input! Please enter 0 or 1 for Keyboard Quantity: ";
-                        cin >> computers[index].keyboardQuantity;
-                    }
-                    if (computers[index].keyboardQuantity > 0) {
-                        cout << "Enter Keyboard Status (1 for Working, 0 for Not Working): ";
-                        cin >> statusInput;
-                        while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
-                            cin >> statusInput;
-                        }
-                        computers[index].keyboardStatus = (statusInput == 1) ? "Working" : "Not Working";
-                    }
-
-                    cout << "Enter LAN Quantity (0 or 1): ";
-                    cin >> computers[index].lanQuantity;
-                    while (cin.fail() || (computers[index].lanQuantity != 0 && computers[index].lanQuantity != 1)) {
-                        cin.clear();
-                        cin.ignore(10000,                        '\n');
-                        cout << "Invalid input! Please enter 0 or 1 for LAN Quantity: ";
-                        cin >> computers[index].lanQuantity;
-                    }
-                    if (computers[index].lanQuantity > 0) {
-                        cout << "Enter LAN Status (1 for Working, 0 for Not Working): ";
-                        cin >> statusInput;
-                        while (cin.fail() || (statusInput != 0 && statusInput != 1)) {
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Invalid input! Please enter 1 for Working or 0 for Not Working: ";
-                            cin >> statusInput;
-                        }
-                        computers[index].lanStatus = (statusInput == 1) ? "Working" : "Not Working";
-                    }
-
-                    computers[index].updateComponentStatus();
-
-                    cout << "Components updated for " << computers[index].name << endl;
-                } else if (subChoice == 3) {
-                    int index;
-                    cout << "Enter index to delete: ";
+                    cout << "Enter the number of computer to edit ( 1 - 34 ): ";
                     cin >> index;
 
                     while (cin.fail() || index < 0 || index >= computerCount) {
@@ -327,20 +172,38 @@ int main() {
                         cin >> index;
                     }
 
-                    for (int i = index; i < computerCount - 1; i++) {
-                        computers[i] = computers[i + 1];
-                    }
-                    computerCount--;
-                    cout << "Deleted computer." << endl;
+                    cout << "Editing components for " << computers[index].name << endl;
+
+                    editComponentStatus("System Unit", computers[index].systemUnitStatus);
+                    editComponentStatus("Mouse", computers[index].mouseStatus);
+                    editComponentStatus("Monitor", computers[index].monitorStatus);
+                    editComponentStatus("Power Supply", computers[index].powerSupplyStatus);
+                    editComponentStatus("Keyboard", computers[index].keyboardStatus);
+                    editComponentStatus("LAN Cable", computers[index].lanCableStatus);
+
+                    computers[index].systemUnitQuantity = (computers[index].systemUnitStatus == "Working") ? 1 : 0;
+                    computers[index].mouseQuantity = (computers[index].mouseStatus == "Working") ? 1 : 0;
+                    computers[index].monitorQuantity = (computers[index].monitorStatus == "Working") ? 1 : 0;
+                    computers[index].powerSupplyQuantity = (computers[index].powerSupplyStatus == "Working") ? 1 : 0;
+                    computers[index].keyboardQuantity = (computers[index].keyboardStatus == "Working") ? 1 : 0;
+                    computers[index].lanCableQuantity = (computers[index].lanCableStatus == "Working") ? 1 : 0;
+
+                    computers[index].updateComponentStatus();
+
+                    cout << "Components updated for " << computers[index].name << endl;
+                } else if (subChoice == 2) {
+                    system("cls");
+                    displayComputers(computers, computerCount);
+                    cout << "\nPress any key [ except esc key ] to return.";
                 }
-                
+
                 getch();
-            } while (subChoice != 4);
+            } while (subChoice != 3);
         } else if (choice == 2) {
-        	system("cls");
+            system("cls");
             displayComputers(computers, computerCount);
             cout << "\nPress any key [ except esc key ] to return.";
-            getch(); 
+            getch();
         }
     } while (choice != 3);
 
