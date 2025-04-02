@@ -61,6 +61,7 @@ body {
 
 .slider_nav-button {
     position: absolute;
+    left: 830px;
     height: 70px;
     width: 70px;
     background-color: rgb(7, 7, 190);
@@ -70,8 +71,7 @@ body {
 
 #nav-button--prev::after {
     content: "";
-    position: linear;
-    margin-left: 200px;
+    position: absolute;
     border: solid white;
     border-width: 0 4px 4px 0;
     display: inline-block;
@@ -94,7 +94,7 @@ body {
 #nav-button--next::after {
     top: 50%;
     right: 50%;
-    transform: translate(25%, -50%) rotate(-45deg);
+    transform: translate(5%, -50%) rotate(-45deg);
 }
 
 #nav-button--prev::after {
